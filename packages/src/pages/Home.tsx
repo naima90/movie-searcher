@@ -1,6 +1,8 @@
 import { useState } from "react";
 import { MovieCard } from "../components/MovieCard";
 
+import "../css/Home.css";
+
 export const Home = () => {
   const [searchMovie, setSearchMovie] = useState("");
   const movies = [
