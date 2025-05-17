@@ -33,7 +33,7 @@
   line-height: 1.6;
 }
 
-/* Animation for new favorites being added */
+/* Animation for new favourites being added */
 @keyframes fadeIn {
   from {
     opacity: 0;

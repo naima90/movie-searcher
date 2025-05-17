@@ -55,8 +55,6 @@ export const Home = () => {
     }
   };
 
-  console.log(movies.map((movie) => movie.title));
-
   return (
     <div className="home">
       <form onSubmit={handleSearch} className="search-form">

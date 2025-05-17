@@ -9,7 +9,7 @@ Movie Searcher is a web-based application designed to help users search for movi
 - **Search Functionality**: Quickly search for movies by title.
 - **Detailed Movie Information**: View details such as release date, cast, synopsis, and ratings.
 - **Responsive Design**: Optimized for both desktop and mobile devices.
-- **Favorites List**: Save your favorite movies for easy access later.
+- **Favourites List**: Save your favourite movies for easy access later.
 
 ## Technologies Used
 
@@ -40,7 +40,7 @@ Movie Searcher is a web-based application designed to help users search for movi
 1. Open the application in your browser at `http://localhost:3000`.
 2. Use the search bar to find movies by title.
 3. Click on a movie to view detailed information.
-4. Save movies to your favorites list for future reference.
+4. Save movies to your favourites list for future reference.
 
 ## Contributing
 
