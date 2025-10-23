@@ -28,7 +28,7 @@ jobs:
       # Log in to Amazon ECR
       - name: Log in to ECR
         id: login-ecr
-        uses: aws-actions/amazon-ecr-login@v4
+        uses: aws-actions/amazon-ecr-login@v2
 
       # build and push tagged image to Amazon ECR
       - name: Build and Push Image to ECR
