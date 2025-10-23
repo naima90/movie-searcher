@@ -15,7 +15,7 @@ jobs:
       - name: Checkout resource code
         uses: actions/checkout@v4
         with:
-        fetch-depth: 0
+          fetch-depth: 0
 
       # configure AWS credentials
       - name: Configure Credentials
