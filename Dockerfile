@@ -1,28 +1,41 @@
-# Build the React.js Application
 ARG NODE_VERSION=18-alpine
 
-# Use lightweight Node.js image for building
+# Build the app
 FROM node:${NODE_VERSION} AS builder
 
-# Set the working directory
-WORKDIR /app/packages
+WORKDIR /app
 
-# Copy package-related files from packages directory
-COPY packages/package.json  packages/package-lock.json ./
+COPY packages/package*.json ./
 
-# Install dependencies using npm ci
-RUN npm install
+RUN npm ci
 
-# Copy the rest of the application source code into the container.
-COPY packages/ ./
+COPY packages/ .
 
-# build dependencies
 RUN npm run build
 
-# runtime stage (simple Node dev server as in your original)
-FROM node:${NODE_VERSION} AS runtime
-WORKDIR /app/packages
-COPY --from=builder /app/packages ./
+# Serve with nginx 
+FROM nginx:alpine
+
+# Create a non-root user and group
+RUN addgroup -g 1001 -S appgroup && \
+    adduser -u 1001 -S appuser -G appgroup
+
+COPY --from=builder /app/dist /usr/share/nginx/html
+
+# Copy custom nginx config to listen on port 8080
+COPY packages/nginx.conf /etc/nginx/conf.d/default.conf
+
+# Change ownership of nginx directories to non-root user
+RUN chown -R appuser:appgroup /usr/share/nginx/html && \
+    chown -R appuser:appgroup /var/cache/nginx && \
+    chown -R appuser:appgroup /var/log/nginx && \
+    chown -R appuser:appgroup /etc/nginx/conf.d && \
+    touch /var/run/nginx.pid && \
+    chown -R appuser:appgroup /var/run/nginx.pid
+
+# Switch to non-root user
+USER appuser
 
 EXPOSE 8080
-CMD ["npm", "run", "dev"]
+
+CMD ["nginx", "-g", "daemon off;"]
