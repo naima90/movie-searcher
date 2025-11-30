@@ -11,6 +11,13 @@ RUN npm ci
 
 COPY packages/ .
 
+# build time args for vite
+ARG VITE_BASE_URL
+ARG VITE_API_KEY
+# Vite reads import.meta.env.VITE_* from process env at build time
+ENV VITE_BASE_URL=$VITE_BASE_URL
+ENV VITE_API_KEY=$VITE_API_KEY
+
 RUN npm run build
 
 # Serve with nginx 
