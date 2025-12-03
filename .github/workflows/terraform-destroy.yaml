@@ -2,11 +2,6 @@ name: Terraform Apply
 
 on:
   workflow_dispatch:
-    inputs:
-      confirm:
-        description: "Type 'DESTROY' to confirm destroying infrastructure"
-        required: true
-        default: "NO"
 
 env:
   TF_WORKING_DIR: infra
@@ -15,8 +10,6 @@ jobs:
   plan-and-apply:
     name: build infra with terraform
     runs-on: ubuntu-latest
-
-    if: github.event.inputs.confirm == "DESTROY"
 
     defaults:
       run:
