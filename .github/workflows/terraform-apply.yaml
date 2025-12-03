@@ -1,9 +1,11 @@
 name: Terraform Apply
 
+# on:
+#   push:
+#     branch:
+#       - main
 on:
-  push:
-    branch:
-      - main
+  workflow_dispatch:
 
 env:
   TF_WORKING_DIR: infra
