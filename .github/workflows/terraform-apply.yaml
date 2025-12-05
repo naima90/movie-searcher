@@ -1,11 +1,9 @@
 name: Terraform Apply
 
-# on:
-#   push:
-#     branch:
-#       - main
 on:
-  workflow_dispatch:
+  push:
+    branch:
+      - main
 
 env:
   TF_WORKING_DIR: infra
@@ -20,11 +18,9 @@ jobs:
         working-directory: ${{ env.TF_WORKING_DIR }}
 
     steps:
-      # get source code
       - name: Checkout resource code
         uses: actions/checkout@v4
 
-      # configure AWS credentials
       - name: Configure Credentials
         uses: aws-actions/configure-aws-credentials@v5
         with:
@@ -32,7 +28,7 @@ jobs:
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           aws-region: ${{ secrets.AWS_REGION }}
 
-      - name: Setup Terraform
+      - name: Terraform Setup
         uses: hashicorp/setup-terraform@v3
 
       - name: Terraform Init
