@@ -1,14 +1,24 @@
 variable "aws_region" {
+    description = "AWS Region"
     type = string
-    default = "eu-west-2"
 }
 
 variable "project_name" {
+    description = "The name of the project"
     type = string
-    default = "movie-searcher-app"
 }
 
 variable "container_port" {
+    description = "Port the application uses"
     type = number
-    default = 8080
+}
+
+variable "domain_name" {
+    description = "root domain name e.g. naima.com"
+    type = string
+}
+
+variable "subdomain" {
+    description = "sub-domain for the app e.g. tm"
+    type = string
 }
