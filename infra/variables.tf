@@ -22,3 +22,8 @@ variable "subdomain" {
     description = "sub-domain for the app e.g. tm"
     type = string
 }
+
+variable "alb_ssl_policy" {
+  description = "SSL policy for ALB HTTPS listener"
+  type = string
+}

@@ -241,11 +241,30 @@ resource "aws_lb" "alb" {
   }
 }
 
-# HTTP listener forwarding to target group
+# HTTP listener redirecting to HTTPS
 resource "aws_lb_listener" "http" {
   load_balancer_arn = aws_lb.alb.arn
   port              = 80
   protocol          = "HTTP"
+
+  default_action {
+    type             = "redirect"
+
+    redirect {
+      port        = "443"
+      protocol    = "HTTPS"
+      status_code = "HTTP_301"
+    }
+  }
+}
+
+# HTTPS listener forwarding to target group
+resource "aws_lb_listener" "https" {
+  load_balancer_arn = aws_lb.alb.arn
+  port              = 443
+  protocol          = "HTTPS"
+  ssl_policy        = var.alb_ssl_policy
+  certificate_arn  = aws_acm_certificate.app_cert.arn
 
   default_action {
     type             = "forward"
@@ -361,8 +380,9 @@ resource "aws_ecs_service" "app" {
   deployment_maximum_percent         = 200
 }
 
+# 14: creates route53 zone and record
 resource "aws_route53_zone" "main" {
-  name = var.domain_name
+  name = "${var.subdomain}.${var.domain_name}"
 
   tags = {
     Name = "${var.project_name}-hosted-zone"
@@ -379,6 +399,42 @@ resource "aws_route53_record" "app" {
     zone_id                = aws_lb.alb.zone_id
     evaluate_target_health = true
   }
+}
+
+# 15: requests ACM certificate and validate
+resource "aws_acm_certificate" "app_cert" {
+  domain_name       = "${var.subdomain}.${var.domain_name}"
+  validation_method = "DNS"
+
+  lifecycle {
+    create_before_destroy = true
+  }
+
+  tags = {
+    Name        = "${var.project_name}-cert"
+  }
+}
+
+resource "aws_route53_record" "cert_validation" {
+  for_each = {
+    for dvo in aws_acm_certificate.app_cert.domain_validation_options :
+    dvo.domain_name => {
+      name  = dvo.resource_record_name
+      type  = dvo.resource_record_type
+      value = dvo.resource_record_value
+    }
+  }
+
+  zone_id = aws_route53_zone.main.zone_id
+  name    = each.value.name
+  type    = each.value.type
+  ttl     = 60
+  records = [each.value.value]
+}
+
+resource "aws_acm_certificate_validation" "app" {
+  certificate_arn         = aws_acm_certificate.app_cert.arn
+  validation_record_fqdns = [for r in aws_route53_record.cert_validation : r.fqdn]
 }
 
 
