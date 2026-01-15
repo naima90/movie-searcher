@@ -8,12 +8,12 @@ The solution follows AWS best practices for security, networking, and scalabilit
 
 ## Table of Contents
 
-1. [Overview](#-overview)
-2. [Tools Used](#-tools-used)
-3. [Architecture](#-architecture)
-4. [Architecture Features](#-architecture-features)
-5. [Directory Structure](#-directory-structure)
-6. [Run Setup](#-local-setup)
+1. [Overview](#overview)
+2. [Tools Used](#tools-used)
+3. [Architecture](#architecture)
+4. [Architecture Features](#architecture-features)
+5. [Directory Structure](#directory-structure)
+6. [Local Setup](#local-setup)
 
 ---
 
