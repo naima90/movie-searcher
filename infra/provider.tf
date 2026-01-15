@@ -10,6 +10,7 @@ terraform {
     bucket  = "terraform-state-bucket-naima"
     key     = "infra/terraform.tfstate"
     region  = "eu-west-2"
+    dynamodb_table = "terraform-lock-table"
     encrypt = true
   }
 }

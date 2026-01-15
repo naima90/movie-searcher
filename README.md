@@ -84,7 +84,7 @@ These tools collectively enable a modern DevOps approach, ensuring the applicati
 
 ---
 
-## Run Setup
+## Local Setup
 
 1. **Clone the repository**:
    git clone <this_repo>
@@ -102,6 +102,7 @@ These tools collectively enable a modern DevOps approach, ensuring the applicati
 
    ```bash
    docker-compose up
+   docker run -p 8080:8080 movie-searcher --> to access the app navigate to `http://localhost:8080`
    ```
 
 5. **Access the application**:
