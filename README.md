@@ -102,7 +102,7 @@ These tools collectively enable a modern DevOps approach, ensuring the applicati
 
    ```bash
    docker-compose up
-   docker run -p 8080:8080 movie-searcher --> to access the app navigate to `http://localhost:8080`
+   docker run -p 8080:8080 movie-searcher --> to access the app navigate to 'http://localhost:8080'
    ```
 
 5. **Access the application**:
