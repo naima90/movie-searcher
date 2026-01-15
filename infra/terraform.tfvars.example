@@ -1,0 +1,6 @@
+aws_region     = "eu-west-2"
+project_name   = "movie-searcher-app"
+container_port = 8080
+domain_name    = "naimaosmann.com"
+subdomain      = "tm"
+alb_ssl_policy = "ELBSecurityPolicy-2016-08"
