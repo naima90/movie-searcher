@@ -65,8 +65,8 @@ jobs:
       - name: Run checkov
         uses: bridgecrewio/checkov-action@master
         with:
-        framework: terraform 
-        output_format: json
+          framework: terraform 
+          output_format: json
 
       - name: Terraform Plan
         run: |
