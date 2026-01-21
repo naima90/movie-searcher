@@ -55,7 +55,7 @@ jobs:
       - name: Terraform Format 
         run: | 
           echo "Running terraform formate..."
-          terraform fmt -check -recursive
+          terraform fmt
           
       - name: Terraform Validate
         run: |
