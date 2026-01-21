@@ -47,15 +47,15 @@ jobs:
       - name: Terraform Setup
         uses: hashicorp/setup-terraform@v3
 
-      - name: Terraform Format 
-        run: | 
-          echo "Running terraform formate..."
-          terraform fmt -check -recursive
-
       - name: Terraform Init
         run: | 
           echo "Initialising terraform..."
           terraform init -input=false
+
+      - name: Terraform Format 
+        run: | 
+          echo "Running terraform formate..."
+          terraform fmt -check -recursive
           
       - name: Terraform Validate
         run: |
